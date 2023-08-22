@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Cities;
 use App\Entity\Contracts;
 use App\Entity\Jobs;
+use App\Entity\Companies;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -27,6 +28,11 @@ class AppFixtures extends Fixture
             $job = new Jobs();
             $job->setJobName($jobname);
             $manager->persist($job);
+        }
+        foreach(["SubSkill", "Selency", "Withings"] as $companyname){
+            $company = new Companies();
+            $company->setCompanyName($companyname);
+            $manager->persist($company);
         }
         
 
