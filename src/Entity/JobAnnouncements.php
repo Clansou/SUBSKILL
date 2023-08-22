@@ -26,6 +26,21 @@ class JobAnnouncements
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'jobAnnouncements')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Cities $City = null;
+
+    #[ORM\ManyToOne(inversedBy: 'jobAnnouncements')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Companies $Company = null;
+
+    #[ORM\ManyToOne(inversedBy: 'jobAnnouncements')]
+    private ?Contracts $Contract = null;
+
+    #[ORM\ManyToOne(inversedBy: 'jobAnnouncements')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Jobs $Job = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +90,54 @@ class JobAnnouncements
     public function setDescription(?string $Description): static
     {
         $this->Description = $Description;
+
+        return $this;
+    }
+
+    public function getCity(): ?Cities
+    {
+        return $this->City;
+    }
+
+    public function setCity(?Cities $City): static
+    {
+        $this->City = $City;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Companies
+    {
+        return $this->Company;
+    }
+
+    public function setCompany(?Companies $Company): static
+    {
+        $this->Company = $Company;
+
+        return $this;
+    }
+
+    public function getContract(): ?Contracts
+    {
+        return $this->Contract;
+    }
+
+    public function setContract(?Contracts $Contract): static
+    {
+        $this->Contract = $Contract;
+
+        return $this;
+    }
+
+    public function getJob(): ?Jobs
+    {
+        return $this->Job;
+    }
+
+    public function setJob(?Jobs $Job): static
+    {
+        $this->Job = $Job;
 
         return $this;
     }
