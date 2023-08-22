@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Cities;
-use App\Entity\Jobs;
+use App\Entity\Contracts;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -17,10 +17,10 @@ class AppFixtures extends Fixture
             $city->setCityName($name);
             $manager->persist($city);
         }
-        foreach(["CDI","CDD","Alternance","Stage","Freelance","Temps partiel"] as $jobsname){
-            $jobs = new Jobs();
-            $jobs->setJobName($jobsname);
-            $manager->persist($jobs);
+        foreach(["CDI","CDD","Alternance","Stage","Freelance","Temps partiel"] as $contractname){
+            $contract = new Contracts();
+            $contract->setContractName($contractname);
+            $manager->persist($contract);
         }
 
         $manager->flush();
