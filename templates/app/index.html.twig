@@ -10,6 +10,21 @@
     {% for jobAnnouncement in jobAnnouncements %}
     <p>{{jobAnnouncement.id}}</p>
     {% endfor %}
+    <p>Page actuelle : {{ pages }}</p>
+
+    {% set currentPage = app.request.query.get('pages', 1) %}
+    
+    {% if currentPage > 1 %}
+        {% set prevPage = currentPage - 1 %}
+        <a href="{{ path('app_app', {'pages': prevPage}) }}">Previous Page</a>
+    {% endif %}
+
+    {% if currentPage < maxPage %}
+        {% set nextPage = currentPage + 1 %}
+        <a href="{{ path('app_app', {'pages': nextPage}) }}">Next Page</a>
+    {% endif %}
+
+    
 
 </div>
 {% endblock %}
