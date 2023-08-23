@@ -28,26 +28,31 @@ class AppController extends AbstractController
         $contractName = $request->query->get('contract');
         $cityName = $request->query->get('city');
 
+
+        $filter = [];
+
         #Convert name to id
         if ($jobName) {
             $job = $jobsRepository->findByName($jobName);
-            $job = $job->getId();
+            $filter['Job'] = $job;
         }
+
         if ($contractName) {
             $contract = $contractsRepository->findByName($contractName);
-            $contract = $contract->getId();
+            $filter['Contract'] = $contract;
         }
+
         if ($cityName) {
             $city = $citiesRepository->findByName($cityName);
-            $city = $city->getId();
+            $filter['City'] = $city;
         }
 
-
         $perPage = 10;
-        $totalJobAnnouncements = $jobAnnouncementsRepository->count([]);
+        $totalJobAnnouncements = $jobAnnouncements->count([]);
         $maxPage = ceil($totalJobAnnouncements / $perPage);
 
-        $jobAnnouncements = $jobAnnouncementsRepository->findBy([], [], $perPage, ($pageNumber-1)*10);
+        $jobAnnouncements = $jobAnnouncementsRepository->findBy($filter, [], $perPage, ($pageNumber-1)*10);
+        
         return $this->render('app/index.html.twig', [
             'jobAnnouncements' =>  $jobAnnouncements,
             'pages' => $pageNumber,
