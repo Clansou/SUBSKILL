@@ -20,6 +20,10 @@ class JobsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Jobs::class);
     }
+    public function findByName(string $name): ?Jobs
+    {
+        return $this->findOneBy(['JobName' => $name]);
+    }
 
 //    /**
 //     * @return Jobs[] Returns an array of Jobs objects

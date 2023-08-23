@@ -20,6 +20,10 @@ class ContractsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Contracts::class);
     }
+    public function findByName(string $name): ?Contracts
+    {
+        return $this->findOneBy(['ContractName' => $name]);
+    }
 
 //    /**
 //     * @return Contracts[] Returns an array of Contracts objects

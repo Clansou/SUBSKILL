@@ -7,6 +7,39 @@
 <div class="example-wrapper">
     <h1>Mes offres d'emploies</h1>
 
+
+    <form method="GET" action="{{ path('app_app') }}">
+        <label for="job">Métier:</label>
+        <select name="job" id="job">
+            <option value="">Tous</option>
+            {# Remplacez jobsData par la liste de vos métiers #}
+            {% for jobData in jobsData %}
+                <option value="{{ jobData.jobname }}">{{ jobData.jobname }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="contract">Contrat:</label>
+        <select name="contract" id="contract">
+            <option value="">Tous</option>
+            {# Remplacez contractsData par la liste de vos contrats #}
+            {% for contractData in contractsData %}
+                <option value="{{ contractData.contractname }}">{{ contractData.contractname }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="city">Ville:</label>
+        <select name="city" id="city">
+            <option value="">Tous</option>
+            {# Remplacez citiesData par la liste de vos villes #}
+            {% for cityData in citiesData %}
+                <option value="{{ cityData.cityname }}">{{ cityData.cityname }}</option>
+            {% endfor %}
+        </select>
+        
+        <button type="submit">Filtrer</button>
+    </form>
+
+
     {% for jobAnnouncement in jobAnnouncements %}
     <p>{{jobAnnouncement.id}}</p>
     {% endfor %}
@@ -23,6 +56,9 @@
         {% set nextPage = currentPage + 1 %}
         <a href="{{ path('app_app', {'pages': nextPage}) }}">Next Page</a>
     {% endif %}
+
+    {{actualjobid}}
+    {{actualjobname}}
 
     
 

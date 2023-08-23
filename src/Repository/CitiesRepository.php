@@ -20,6 +20,10 @@ class CitiesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cities::class);
     }
+    public function findByName(string $name): ?Cities
+    {
+        return $this->findOneBy(['CityName' => $name]);
+    }
 
 //    /**
 //     * @return Cities[] Returns an array of Cities objects
