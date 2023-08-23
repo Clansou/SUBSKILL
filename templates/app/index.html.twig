@@ -5,14 +5,14 @@
 {% block body %}
 
 <div class="example-wrapper">
-    <h1>Mes offres d'emploies</h1>
+    <h1>Mes offres d'emploi</h1>
 
 
     <form method="GET" action="{{ path('app_app') }}">
         <label for="job">Métier:</label>
         <select name="job" id="job">
             <option value="">Tous</option>
-            {# Remplacez jobsData par la liste de vos métiers #}
+            {#Cherche tout les jobs dans la DB#}
             {% for jobData in jobsData %}
                 <option value="{{ jobData.jobname }}">{{ jobData.jobname }}</option>
             {% endfor %}
@@ -21,7 +21,7 @@
         <label for="contract">Contrat:</label>
         <select name="contract" id="contract">
             <option value="">Tous</option>
-            {# Remplacez contractsData par la liste de vos contrats #}
+            {#Cherche tout les contrats dans la DB#}
             {% for contractData in contractsData %}
                 <option value="{{ contractData.contractname }}">{{ contractData.contractname }}</option>
             {% endfor %}
@@ -30,7 +30,7 @@
         <label for="city">Ville:</label>
         <select name="city" id="city">
             <option value="">Tous</option>
-            {# Remplacez citiesData par la liste de vos villes #}
+            {#Cherche toutes les villes dans la DB#}
             {% for cityData in citiesData %}
                 <option value="{{ cityData.cityname }}">{{ cityData.cityname }}</option>
             {% endfor %}
@@ -41,7 +41,27 @@
 
     {% if maxPage > 0 %}
         {% for jobAnnouncement in jobAnnouncements %}
-            <div>
+            <div id="{{jobAnnouncement.id}}">
+            <script>
+                fetch('https://some-random-api.ml/meme/')
+    .then((response) => response.json())
+    .then((json) =>{
+        let imgUrl = json.image;
+        console.log(imageUrl)
+        let img = document.createElement('img');
+        console.log(img)
+        img.src = imageUrl
+        let divParent = document.getElementById('{{jobAnnouncement.id}}');
+        console.log(divParent)
+        if (divParent) {
+            divParent.appendChild(img);
+        } else {
+            console.error('Div element not found.');
+        }
+
+
+    });
+            </script>
                 <h3>{{jobAnnouncement.announcementsTitle}}</h3>
                 <p>Référence : {{jobAnnouncement.id}}</p>
                 <p>Ville : {{jobAnnouncement.city}}</p>
