@@ -95,23 +95,28 @@
 
         <p>Page actuelle : {{ pages }}</p>
 
-        {#Set des données pour les remettres dans le lien si on change de page#}
-        {% set currentPage = app.request.query.get('pages', 1) %}
-        {% set actualjobname = app.request.query.get('job', '') %}
-        {% set actualcontractname = app.request.query.get('contract', '') %}
-        {% set actualcityname = app.request.query.get('city', '') %}
-        
-        {#Vérifie si on est pas a la première page#}
-        {% if currentPage > 1 %}
-            {% set prevPage = currentPage - 1 %}
-            <a href="{{ path('app_app', {'pages': prevPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Previous Page</a>
-        {% endif %}
+        <nav class="w-50 mx-auto ">
+              <ul class="pagination d-flex justify-content-around">
 
-        {#Vérifie si on est pas a la dernière page#}
-        {% if currentPage < maxPage %}
-            {% set nextPage = currentPage + 1 %}
-            <a href="{{ path('app_app', {'pages': nextPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Next Page</a>
-        {% endif %}
+                {#Set des données pour les remettres dans le lien si on change de page#}
+                {% set currentPage = app.request.query.get('pages', 1) %}
+                {% set actualjobname = app.request.query.get('job', '') %}
+                {% set actualcontractname = app.request.query.get('contract', '') %}
+                {% set actualcityname = app.request.query.get('city', '') %}
+                
+                {#Vérifie si on est pas a la première page#}
+                {% if currentPage > 1 %}
+                    {% set prevPage = currentPage - 1 %}
+                    <li class="page-item"><a class="page-link" href="{{ path('app_app', {'pages': prevPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Previous Page</a></li>
+                {% endif %}
+
+                {#Vérifie si on est pas a la dernière page#}
+                {% if currentPage < maxPage %}
+                    {% set nextPage = currentPage + 1 %}
+                    <li class="page-item"><a class="page-link" href="{{ path('app_app', {'pages': nextPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Next Page</a></li>
+                {% endif %}
+            </ul>
+        </nav>
         {% else %}
         {#S'affiche si il n'y a pas de résultat#}
         <h2> Aucune annonce disponible</h2>
