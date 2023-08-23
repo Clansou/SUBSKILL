@@ -48,11 +48,10 @@ class AppController extends AbstractController
         }
 
         $perPage = 10;
-        $totalJobAnnouncements = $jobAnnouncements->count([]);
-        $maxPage = ceil($totalJobAnnouncements / $perPage);
 
         $jobAnnouncements = $jobAnnouncementsRepository->findBy($filter, [], $perPage, ($pageNumber-1)*10);
-        
+        $totalJobAnnouncements = $jobAnnouncementsRepository->count($filter);
+        $maxPage = ceil($totalJobAnnouncements / $perPage);
         return $this->render('app/index.html.twig', [
             'jobAnnouncements' =>  $jobAnnouncements,
             'pages' => $pageNumber,

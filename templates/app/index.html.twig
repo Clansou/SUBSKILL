@@ -39,26 +39,32 @@
         <button type="submit">Filtrer</button>
     </form>
 
+    {% if maxPage > 0 %}
+        {% for jobAnnouncement in jobAnnouncements %}
+            <p>{{jobAnnouncement.id}}</p>
+        {% endfor %}
+        <p>Page actuelle : {{ pages }}</p>
 
-    {% for jobAnnouncement in jobAnnouncements %}
-    <p>{{jobAnnouncement.id}}</p>
-    {% endfor %}
-    <p>Page actuelle : {{ pages }}</p>
+        {% set currentPage = app.request.query.get('pages', 1) %}
+        {% set actualjobname = app.request.query.get('job', '') %}
+        {% set actualcontractname = app.request.query.get('contract', '') %}
+        {% set actualcityname = app.request.query.get('city', '') %}
+        
+        {% if currentPage > 1 %}
+            {% set prevPage = currentPage - 1 %}
+            <a href="{{ path('app_app', {'pages': prevPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Previous Page</a>
+        {% endif %}
 
-    {% set currentPage = app.request.query.get('pages', 1) %}
-    {% set actualjobname = app.request.query.get('job', '') %}
-    {% set actualcontractname = app.request.query.get('contract', '') %}
-    {% set actualcityname = app.request.query.get('city', '') %}
+        {% if currentPage < maxPage %}
+            {% set nextPage = currentPage + 1 %}
+            <a href="{{ path('app_app', {'pages': nextPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Next Page</a>
+        {% endif %}
+        {% else %}
+        <h2> Aucune annonce disponible</h2>
+    {% endif %}
+
+
     
-    {% if currentPage > 1 %}
-        {% set prevPage = currentPage - 1 %}
-        <a href="{{ path('app_app', {'pages': prevPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Previous Page</a>
-    {% endif %}
-
-    {% if currentPage < maxPage %}
-        {% set nextPage = currentPage + 1 %}
-        <a href="{{ path('app_app', {'pages': nextPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Next Page</a>
-    {% endif %}
 
     
 
