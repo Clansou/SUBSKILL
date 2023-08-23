@@ -40,52 +40,59 @@
                 {% endfor %}
             </select>
         </div>
+
         <div class="text-center">
             <button class="btn btn-primary btn-md mt-3"type="submit">Filtrer</button>
         </div>
     </form>
+
     {#reset en enlevant tout les paramètres dans l'url#}
     <div class="text-center">
         <a class="btn btn-primary btn-md mt-3"href="{{ path('app_app')}}">Reset</a>
     </div>
 
+
+
     {% if maxPage > 0 %}
         {#boucle pour afficher chaque annonce correspondante#}
-        {% for jobAnnouncement in jobAnnouncements %}
-            {#Crée un block pour une annonce d'annonce#}
-            <div id="{{jobAnnouncement.id}}">
-            <script>
-                fetch('https://some-random-api.ml/meme/')
-    .then((response) => response.json())
-    .then((json) =>{
-        let imgUrl = json.image;
-        console.log(imageUrl)
-        let img = document.createElement('img');
-        console.log(img)
-        img.src = imageUrl
-        let divParent = document.getElementById('{{jobAnnouncement.id}}');
-        console.log(divParent)
-        if (divParent) {
-            divParent.appendChild(img);
-        } else {
-            console.error('Div element not found.');
-        }
-
-
-    });
-            </script>
-
-                <h3>{{jobAnnouncement.announcementsTitle}}</h3>
-                <p>Référence : {{jobAnnouncement.id}}</p>
-                <p>Ville : {{jobAnnouncement.city}}</p>
-                <p>Contrat : {{jobAnnouncement.contract}}</p>
-                <p>Métier : {{jobAnnouncement.job}}</p>
-                <p>Entreprise : {{jobAnnouncement.company}}</p>
-                <p>Description : {{jobAnnouncement.description|slice(0, 30)}}</p>
-                <p>Le {{jobAnnouncement.publishdate|date('d/m/y')}}</p>
+        <div class="container mt-5 mb-3">
+            <div class ="row">
+                {% for jobAnnouncement in jobAnnouncements %}
+                {#Crée un block pour une annonce d'annonce#}
+                <div class="col-md-4">
+                    <div class="card p-3 mb-2">
+                    <script>
+                        fetch('https://some-random-api.ml/meme/')
+                        .then((response) => response.json())
+                        .then((json) =>{
+                            let imgUrl = json.image;
+                            let img = document.getElementById('{{jobAnnouncement.id}}');
+                            img.src = imgUrl
+                        });
+                    </script>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <img  id="{{jobAnnouncement.id}}"></img>
+                                <div class="ms-2 c-details">
+                                    <p class="h4">{{jobAnnouncement.announcementsTitle}}</p>
+                                    <p>Référence : {{jobAnnouncement.id}}</p>
+                                    <p>Le {{jobAnnouncement.publishdate|date('d/m/y')}}</p>
+                                </div>
+                                <p>Ville : {{jobAnnouncement.city}}</p>
+                            </div>
+                        </div>
+                            <p class="h6">Métier : {{jobAnnouncement.job}}</p>
+                            <p class="h6">Contrat : {{jobAnnouncement.contract}}</p>
+                            <p class="h6">Entreprise : {{jobAnnouncement.company}}</p>
+                        <p class="lead">Description : {{jobAnnouncement.description|slice(0, 30)}}</p>
+                    </div>
+                </div>
+                
+            {% endfor %}
             </div>
-            
-        {% endfor %}
+        </div>
+
+
         <p>Page actuelle : {{ pages }}</p>
 
         {#Set des données pour les remettres dans le lien si on change de page#}
