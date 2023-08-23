@@ -55,8 +55,6 @@ class AppController extends AbstractController
             'jobsData' => $jobsRepository->findAll(),
             'contractsData' => $contractsRepository->findAll(),
             'citiesData' => $citiesRepository->findAll(),
-            'actualjobname' =>$jobName,
-            'actualjobid' =>$job,
 
         ]);
 

@@ -46,19 +46,19 @@
     <p>Page actuelle : {{ pages }}</p>
 
     {% set currentPage = app.request.query.get('pages', 1) %}
+    {% set actualjobname = app.request.query.get('job', '') %}
+    {% set actualcontractname = app.request.query.get('contract', '') %}
+    {% set actualcityname = app.request.query.get('city', '') %}
     
     {% if currentPage > 1 %}
         {% set prevPage = currentPage - 1 %}
-        <a href="{{ path('app_app', {'pages': prevPage}) }}">Previous Page</a>
+        <a href="{{ path('app_app', {'pages': prevPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Previous Page</a>
     {% endif %}
 
     {% if currentPage < maxPage %}
         {% set nextPage = currentPage + 1 %}
-        <a href="{{ path('app_app', {'pages': nextPage}) }}">Next Page</a>
+        <a href="{{ path('app_app', {'pages': nextPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Next Page</a>
     {% endif %}
-
-    {{actualjobid}}
-    {{actualjobname}}
 
     
 
