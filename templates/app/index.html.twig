@@ -41,7 +41,17 @@
 
     {% if maxPage > 0 %}
         {% for jobAnnouncement in jobAnnouncements %}
-            <p>{{jobAnnouncement.id}}</p>
+            <div>
+                <h3>{{jobAnnouncement.announcementsTitle}}</h3>
+                <p>Référence : {{jobAnnouncement.id}}</p>
+                <p>Ville : {{jobAnnouncement.city}}</p>
+                <p>Contrat : {{jobAnnouncement.contract}}</p>
+                <p>Métier : {{jobAnnouncement.job}}</p>
+                <p>Entreprise : {{jobAnnouncement.company}}</p>
+                <p>Description : {{jobAnnouncement.description|slice(0, 30)}}</p>
+                <p>Le {{jobAnnouncement.publishdate|date('d/m/y')}}</p>
+            </div>
+            
         {% endfor %}
         <p>Page actuelle : {{ pages }}</p>
 

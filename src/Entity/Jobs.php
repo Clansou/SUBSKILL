@@ -72,4 +72,9 @@ class Jobs
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getJobName();
+    }
+    
 }
