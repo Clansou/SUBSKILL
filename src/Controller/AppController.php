@@ -22,7 +22,7 @@ class AppController extends AbstractController
     Request $request,
     ): Response
     {
-        #get parameters in url
+        #récupère les parametres dans l'url
         $pageNumber = $request->query->getInt('pages', 1);
         $jobName = $request->query->get('job');
         $contractName = $request->query->get('contract');
@@ -31,7 +31,7 @@ class AppController extends AbstractController
 
         $filter = [];
 
-        #Convert name to id
+        #récupère l'id en fonction des noms
         if ($jobName) {
             $job = $jobsRepository->findByName($jobName);
             $filter['Job'] = $job;
@@ -47,11 +47,17 @@ class AppController extends AbstractController
             $filter['City'] = $city;
         }
 
+        #annonces par page
         $perPage = 10;
 
+
+        #cherche toutes les données des annonces en fonction des filtres, du nombre par page et du numéro de page
         $jobAnnouncements = $jobAnnouncementsRepository->findBy($filter, [], $perPage, ($pageNumber-1)*10);
+
+        #Compte le nombre d'annonces pour savoir le nombre de page maximum 
         $totalJobAnnouncements = $jobAnnouncementsRepository->count($filter);
         $maxPage = ceil($totalJobAnnouncements / $perPage);
+        #Renvoie des données sur la page
         return $this->render('app/index.html.twig', [
             'jobAnnouncements' =>  $jobAnnouncements,
             'pages' => $pageNumber,

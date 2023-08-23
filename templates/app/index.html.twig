@@ -38,10 +38,13 @@
         
         <button type="submit">Filtrer</button>
     </form>
+    {#reset en enlevant tout les paramètres dans l'url#}
     <a href="{{ path('app_app')}}">Reset</a>
 
     {% if maxPage > 0 %}
+        {#boucle pour afficher chaque annonce correspondante#}
         {% for jobAnnouncement in jobAnnouncements %}
+            {#Crée un block pour une annonce d'annonce#}
             <div id="{{jobAnnouncement.id}}">
             <script>
                 fetch('https://some-random-api.ml/meme/')
@@ -63,6 +66,7 @@
 
     });
             </script>
+
                 <h3>{{jobAnnouncement.announcementsTitle}}</h3>
                 <p>Référence : {{jobAnnouncement.id}}</p>
                 <p>Ville : {{jobAnnouncement.city}}</p>
@@ -76,21 +80,25 @@
         {% endfor %}
         <p>Page actuelle : {{ pages }}</p>
 
+        {#Set des données pour les remettres dans le lien si on change de page#}
         {% set currentPage = app.request.query.get('pages', 1) %}
         {% set actualjobname = app.request.query.get('job', '') %}
         {% set actualcontractname = app.request.query.get('contract', '') %}
         {% set actualcityname = app.request.query.get('city', '') %}
         
+        {#Vérifie si on est pas a la première page#}
         {% if currentPage > 1 %}
             {% set prevPage = currentPage - 1 %}
             <a href="{{ path('app_app', {'pages': prevPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Previous Page</a>
         {% endif %}
 
+        {#Vérifie si on est pas a la dernière page#}
         {% if currentPage < maxPage %}
             {% set nextPage = currentPage + 1 %}
             <a href="{{ path('app_app', {'pages': nextPage, 'job': actualjobname, 'contract': actualcontractname, 'city': actualcityname}) }}">Next Page</a>
         {% endif %}
         {% else %}
+        {#S'affiche si il n'y a pas de résultat#}
         <h2> Aucune annonce disponible</h2>
     {% endif %}
 
